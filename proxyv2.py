@@ -270,6 +270,7 @@ def main():
 
         # Create a list of commands
                 commands = [
+                    f'node cfb.js {url} 120',
                     f'node HTTP-MIX {url} {time}',
                     f'go run sever.go -site {url} GET',
                     f'node https2v5 GET {url} proxies.txt {time} 200 10',
