@@ -275,8 +275,7 @@ def main():
                     f'go run sever.go -site {url} GET',
                     f'node https2v5 GET {url} proxies.txt {time} 200 10',
                     f'node https1 {url} 10 2000 {time}',
-                    f'go run hulk.go -site {url} GET nil',
-                    f'node HTTP-RAND.js {url} {time}',
+                    f'go run hulk.go -site {url} GET ',
                     f'node HTTP-RAW.js {url} {time}',
                     f'node cfb.js {url} 120'
                 ]
