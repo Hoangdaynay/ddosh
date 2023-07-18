@@ -273,7 +273,7 @@ def main():
                 commands = [
                   f'node HTTP-MIX {url} {time}',
                   f'go run sever.go -site {url} GET',
-                  f'node https2v5 GET {url} proxies.txt {time} 200 10000000',
+                  f'node https2v5 GET {url} proxies.txt {time} 200000 10',
                   f'node https1 {url} 10 2000 {time}',
                   f'go run hulk.go -site {url} GET',
                   f'node HTTP-RAW.js {url} {time}',
